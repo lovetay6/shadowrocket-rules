@@ -1,7 +1,7 @@
 #!url=https://raw.githubusercontent.com/lovetay6/shadowrocket-rules/main/sr_app_ad_bili_fixed.module
 # Source: https://github.com/huijingfei/Shadowrocket-Rules/blob/main/sr_app_ad.module
 # Bilibili response filtering adapted from: https://github.com/semomanli/Shadowrocket/blob/main/Release/Module.sgmodule
-#!name=sr_app_ad_bili_fixed
+#!name=sr_app_ad_bili_fixed_v2
 #!desc=国内 APP 去广告；B站开屏响应清理测试版，使用现有证书
 #!category=Rules
 
@@ -2129,8 +2129,8 @@ IP-CIDR,61.182.131.252/24,DIRECT
 ^https?:\/\/app\.58\.com\/api\/home\/appadv\/splashscreenadv _ REJECT-DICT
 ^https?:\/\/open\.taou\.com\/maimai\/adshow _ REJECT
 
-[Body Rewrite]
-http-response-jq ^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(list|show|event\/list2|brand\/list)\? '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
+[Script]
+bili-splash-v2 = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(list|show|event\/list2|brand\/list)\?,requires-body=true,script-path=https://raw.githubusercontent.com/lovetay6/shadowrocket-rules/189345f8e9be4069182e27983d58de90472220fc/bilibili-splash-v2.js,timeout=10
 
 [Host]
 localhost = 127.0.0.1
