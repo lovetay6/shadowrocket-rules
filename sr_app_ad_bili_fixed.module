@@ -1,7 +1,7 @@
 #!url=https://raw.githubusercontent.com/lovetay6/shadowrocket-rules/main/sr_app_ad_bili_fixed.module
 # Source: https://github.com/huijingfei/Shadowrocket-Rules/blob/main/sr_app_ad.module
 # Bilibili response filtering adapted from: https://github.com/semomanli/Shadowrocket/blob/main/Release/Module.sgmodule
-#!name=sr_app_ad_bili_fixed_v2
+#!name=sr_app_ad_bili_fixed_v3
 #!desc=国内 APP 去广告；B站开屏响应清理测试版，使用现有证书
 #!category=Rules
 
@@ -2111,6 +2111,13 @@ IP-CIDR,61.182.130.252/24,DIRECT
 IP-CIDR,61.182.131.252/24,DIRECT
 
 [URL Rewrite]
+# Carrier splash rules: blackmatrix7/ios_rule_script and wxs0625/loon-plugins.
+# h.app.coc host variant inferred from device log; endpoint not yet confirmed.
+^https?:\/\/(?:client\.app\.coc|h\.client\.app\.coc|h\.app\.coc|app\.coc|app|clientaccess)\.10086\.cn\/biz-orange\/DN\/init\/startInit(?:[/?]|$) _ REJECT-200
+^https?:\/\/(?:client\.app\.coc|h\.client\.app\.coc|h\.app\.coc|app\.coc|app)\.10086\.cn\/biz-orange\/DN\/explorePage\/getAdverList(?:[/?]|$) _ REJECT-200
+^https?:\/\/zt-app\.go189\.cn\/zt-app\/welcome\/[^?\s]*Animation _ REJECT-200
+^https?:\/\/cloud\.189\.cn\/include\/splash\/ _ REJECT-200
+
 ^https?:\/\/(www\.)?(g\.cn|google\.cn)\/?$ https://www.google.com 307
 ^https?:\/\/www\.tianxibook\.com\/public\/\d{6}\.js$ _ REJECT-DICT
 ^https?:\/\/interface\.music\.163\.com\/eapi\/ad\/config\/get _ REJECT
@@ -2136,5 +2143,5 @@ bili-splash-v2 = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v
 localhost = 127.0.0.1
 
 [MITM]
-hostname = *.alicdn.com,*.taou.com,*.58.com,cloud.video.taobao.com,m5.amap.com,api.m.jd.com,www.tianxibook.com,*.360buyimg.com,interface.music.163.com,app.bilibili.com,api.zhihu.com,acs.m.goofish.com
+hostname = *.alicdn.com,*.taou.com,*.58.com,cloud.video.taobao.com,m5.amap.com,api.m.jd.com,www.tianxibook.com,*.360buyimg.com,interface.music.163.com,app.bilibili.com,api.zhihu.com,acs.m.goofish.com,client.app.coc.10086.cn,h.client.app.coc.10086.cn,h.app.coc.10086.cn,app.coc.10086.cn,app.10086.cn,clientaccess.10086.cn,res.coc.10086.cn,res.app.coc.10086.cn,zt-app.go189.cn,cloud.189.cn
 enable = true
